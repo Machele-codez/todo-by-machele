@@ -1,0 +1,190 @@
+.col-sm-7, .col-sm-4, .col-sm-1{
+    margin: auto;
+}
+
+.left-container, .right-container{
+    height: 100%;
+    margin-top: 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.login-text{
+    font-size: 2.5rem;
+}
+
+.signup-text{
+    font-size: 1.8rem;
+}
+
+.get-started{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup{
+    width: max-content;
+    box-shadow: rgb(231, 229, 229) .05rem .05rem .1rem .2rem;
+}
+
+.form-container{
+    border-radius: 1rem 1rem 1rem 0;
+    height: 22.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: rgb(231, 229, 229) .05rem .05rem .1rem .2rem;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: .5rem;
+}
+
+.form{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: inherit;
+}
+
+.login-error{
+    background-color: #f7b570;
+    border-radius: .25rem;
+    padding: .5rem;
+}
+
+.field-div{
+    position: relative;
+    width: inherit;
+}
+
+
+.form input{
+    padding: .2rem;
+    width: 70%;
+}
+
+.form[name="login-form"] input{
+    width: 100%;
+}
+
+.form input:focus{
+    border: 3px solid gray;
+}
+
+.sub{
+    border: none;
+    width: max-content;
+}
+
+input{
+    border-radius: .6rem;
+    border-color: #e8e6e6;
+    border-width: 3px;
+    border-top-style: outset;
+    border-right-style: inset;
+    border-bottom-style: inset;
+    border-left-style: outset;
+    text-align: center;
+}
+
+input::placeholder{
+    color: gray;
+}
+
+/* input[type="email"]:focus:invalid{
+    border-color: red
+} */
+
+/* 
+errorlist nuisance for password fields
+ul{
+    display: none;
+} */
+
+
+/* .field-div:hover .help-text{
+    display: block;
+} */
+
+.help-text{
+    display: none;
+    position: absolute;
+    right: 105%;
+    top: -50%;
+    box-shadow: rgb(231, 229, 229) 0.05rem 0.05rem 0.1rem 0.1rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    background-color: #e3dede;
+    width: 20rem;
+    z-index: 1;
+}
+
+.help-text::before{
+    /* display: none; */
+    content: '';
+    background-color: #e3dede;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    right: -.5rem;
+    top: 1.5rem;
+    transform: rotate(45deg);
+}
+
+.help-text span{
+    display: block;
+}
+
+.field-errors{
+    /* display: none; */
+    position: absolute;
+    right: 100%;
+    /* top: -50%; */
+    /* box-shadow: rgb(243, 80, 80) 0.05rem 0.05rem 0.1rem 0.1rem; */
+    box-shadow: #f0f0f0 0.05rem 0.05rem 0.1rem 0.1rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    padding-left: 0%;
+    /* background-color: coral; */
+    background-color: gray;
+    width: 20rem;
+    text-align: left;
+    cursor: default;
+}
+
+/* .field-errors::before{
+    content: '';
+    background-color: gray;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    right: -.5rem;
+    top: 1.5rem;
+    transform: rotate(45deg);
+} */
+
+/* field names in error message block */
+.errorlist li{
+    list-style: none;
+    text-transform: capitalize;
+    /* font-size: large; */
+    margin: .25rem 0;
+    font-weight: 700;
+}
+
+/* field error messages */
+.errorlist>li>:first-child{
+    text-transform: none;
+    font-size: initial;
+    font-size: 1rem;
+    color: #e8e6e6;
+    font-weight: initial;
+    font-style: italic;
+    
+}

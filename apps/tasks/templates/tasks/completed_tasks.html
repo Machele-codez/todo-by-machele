@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Completed Tasks
+{% endblock %}
+    
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'todo_app/css/todo.css' %}">    
+{% endblock  %}
+
+{% block body %}
+        
+    <div class="row justify-content-center mt-4">
+        <div class="col-sm-8">
+            <p class='display-4' style='text-align:center'>Completed Tasks</p>
+            <div class="content">
+                <div class="tasks mt-4">
+                    {% for task in user.tasks.completed %}
+                        <p class='task completed mb-0 mt-3' id=task_{{task.pk}}>
+                            <span class="task-text">{{task.text}}</span>
+                            <span class='task-options'>
+                                <!--
+                                <a href='#' class='complete btn btn-md' data-toggle="tooltip" placement="bottom" title="Mark as completed">
+                                    <i class="fas fa-lg fa-check"></i>
+                                </a>
+                                -->
+                                <a href='{% url "tasks:task_remove" pk=task.pk%}' class='delete btn btn-md' data-toggle="tooltip" placement="bottom" title="Delete Task">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </span>
+                        </p>
+                        <hr class="my-1">
+                        <span class="duration"><b><em>Completed:</em></b> {{task.completed_on|naturaltime}}</span>
+                    {%empty%}
+                    <p class='display-4' style='text-align: center; color: grey'>No Completed tasks yet</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+    

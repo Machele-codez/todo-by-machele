@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Signup
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'accounts/css/form.css' %}">
+    <script src="{% static 'accounts/js/form.js' %}" defer></script>
+{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-sm-7" style='margin: auto; height; max-content'>
+    <div class="left-container">
+        <p class="signup-text">
+            Hello There, You're Welcome to TODO! Great decision to join us! Get more stuff done by organizing your tasks and studying your progress all in one place
+        </p>
+        <div style='padding: 1.3rem'></div>
+        <div class="get-started">
+            <p>Already have an account?</p>
+            <a href="{% url 'login' %}" class="login nav-button">Login</a>
+        </div>
+    </div>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4">
+        <div class="right-container">
+            <div class="form-container">
+                <form class='form' name="signup-form" method="post">
+                    {% csrf_token %}
+                    <p class="notice">Create your account</p>
+                    
+                    {% if form.errors %}
+                    <span class='field-errors'>
+                        {{form.errors}}
+                        <button type="button" class="field-errors-close close">x</button>
+                    </span>
+                    {% endif %}
+                    {% for field in form %}
+                        <div class='field-div'>
+                            <p>{{field}}</p>
+                            {% comment %} {% if field.errors %}
+                            <span id="{{field.name}}-errors" class='field-errors'>{{field.errors|safe}}</span>
+                            {% endif %} {% endcomment %}
+                            {% if field.help_text %}
+                            <span id="{{field.name}}-help-text" class='help-text'>{{field.help_text|safe}}</span>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="sub nav-button">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

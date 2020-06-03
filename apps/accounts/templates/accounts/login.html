@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'accounts/css/form.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-sm-7" style='margin: auto'>
+    <div class="left-container">
+        <p class="login-text">
+            Hello There, You're Welcome Organize your tasks! Get more stuff done
+        </p>
+        <div style='padding: 1.3rem'></div>
+        <div class="get-started">
+            <p>Haven't signed up yet?</p>
+            <a href="{% url 'accounts:signup' %}" class="signup nav-button">Get started</a>
+        </div>
+    </div>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4">
+        <div class="right-container">
+            <div class="form-container">
+                <form class='form' name="login-form" method="post">
+                    {% csrf_token %}
+                    <p class="notice">Login to your account</p>
+                    {% if form.errors %}
+                        <p class='login-error'>Username and password didn't match. Please try again</p>
+                    {% endif %}
+                        
+                    {% for field in form %}
+                        <p>{{field}}</p>
+                    {% endfor %}
+                    <button type="submit" class="sub nav-button">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

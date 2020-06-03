@@ -1,0 +1,53 @@
+#main-nav{
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    text-align: center;    
+    box-shadow: rgb(209, 207, 207) 0 0 .5rem;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    background-color: white;
+    margin-bottom: 1rem;
+}
+
+.site-brand{
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.nav-contents{
+    display: flex;
+    justify-content: space-around;
+    flex-basis: content;
+    flex-grow: 1;
+}
+
+.nav-pages{
+    display: inline-flex;
+    justify-content: space-around;
+    flex-grow: .2;
+}
+
+.nav-user-actions{
+    display: inline-flex;
+    justify-content: space-around;
+    flex-grow: .05;
+}
+
+.nav-button{
+    padding: .5rem 1rem;
+    border-radius: 1rem;
+    box-shadow: rgb(231, 229, 229) .05rem .05rem .1rem .1rem;
+    color: #707070;
+}
+
+.user{
+    padding: .5rem 1rem;
+}
+
+a:hover{
+    color: unset;
+    text-decoration: none;
+}

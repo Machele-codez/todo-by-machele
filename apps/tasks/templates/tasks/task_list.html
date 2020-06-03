@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+My Tasks
+{% endblock %}
+    
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'tasks/css/todo.css' %}">    
+    <script src="{% static 'tasks/js/todo.js' %}" defer></script>
+    <script>$(".alert").alert('close')</script>
+{% endblock  %}
+
+{% block body %}
+            
+    <div class="row justify-content-center">
+        <div class="col-sm-10">
+            <!--<p class='display-3' style='text-align:center'>Tasks</p>-->
+            <div class="content">
+                <form method="post">
+                    {% csrf_token %}
+                    <!--ALERTS-->
+                    <div id='duplicate-alert' class="alert alert-warning alert-dismissible fade show" hidden>
+                        <button type="button" class="close">
+                            <span id='duplicate-alert-dismiss'>&times;</span>
+                        </button>
+                        <strong>Task Already Present</strong> 
+                    </div>
+                    <div id='duedatetime-alert' class="alert alert-warning alert-dismissible fade show" hidden>
+                        <button type="button" class="close">
+                            <span id='duedatetime-alert-dismiss'>&times;</span>
+                        </button>
+                        <strong>Due date and time cannot occur before current date and time</strong> 
+                    </div>
+                    <div id='empty-task-alert' class="alert alert-warning alert-dismissible fade show" hidden>
+                        <button type="button" class="close">
+                            <span id='empty-task-alert-dismiss'>&times;</span>
+                        </button>
+                        <strong>Task text cannot be empty</strong> 
+                    </div>
+                    {% if form.errors %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <strong>
+                            {{form.errors}}
+                          </strong> 
+                        </div>
+                    {% endif %}
+                    <!--FORM INPUTS-->
+                    <div class="ins mt-4">
+                        <!--input fields-->
+                        <div class="field-div">
+                            <span class='form-fields row'>
+                                <span class="task-text-input-span col-sm-5">{{form.text}}</span>
+                                <span class='col-sm-2'>{{form.priority}}</span>
+                                <span class='col-sm-3'>{{form.due_date}}</span>
+                                <span class='col-sm-2'>{{form.due_time}}</span>
+                            </span>
+                            <p class="duplicate-error-msg"></p>
+                        </div>
+                        <!--submit button-->
+                        <button data-toggle="tooltip" placement="bottom" title="Add Task" class="btn btn-success" type="submit"><i class="fas fa-plus"></i></button>
+                    </div>
+                </form>
+                <div class="tasks">
+                    {% for task in user.tasks.all %}
+                        <div id=task_{{task.pk}}>
+                        {% if not task.completed %}
+                            <p class='task'>
+                                <span class="task-priority {{task.priority}}" data-toggle="tooltip" placement="bottom" title="{{task.priority}} priority"></span>
+                                
+                                <span class="task-text">{{task.text}}</span>
+
+                                <span class='task-options'>
+                                    <a class='option-complete' onclick="completeTask({{task.pk}}, `{% url 'tasks:complete' %}`, priority='{{task.priority}}')" data-toggle="tooltip" placement="bottom" title="Mark as completed">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                    <a class='option-delete' onclick="deleteTask({{task.pk}}, {{task.text}}, `{% url 'tasks:remove' %}`)" data-toggle="tooltip" placement="bottom" title="Delete Task">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </span>
+                            </p>
+                            <hr class="my-0">
+                            <span class="task-time">
+                                <span class="time-added" title="time added"><b><em>Added: </em></b>{{task.date_created|naturaltime}}</span>
+                                    {% if task.due_datetime > current_time %}
+                                    <span class="due-time not-due" title="{{task.due_datetime}}"><b><em>Due: </em></b>{{task.due_datetime|naturaltime}}</span>
+                                    {% else %}
+                                    <span class="due-time due" title="{{task.due_datetime}}"><b><em>Due: </em></b>{{task.due_datetime|naturaltime}}</span>
+                                    {% endif %}
+                            </span>
+                        {% else %}
+                            <p class='task'>
+                                <span class="task-priority completed-priority" data-toggle="tooltip" placement="bottom" title="Marked as completed"></span>
+                                
+                                <span class="task-text">{{task.text}}</span>
+
+                                <span class='task-options'>
+                                    <a class='option-undocomplete' onclick="undoComplete({{task.pk}}, `{% url 'tasks:undocomplete' %}`, priority={{task.priority}})" data-toggle="tooltip" placement="bottom" title="Delete Task">
+                                        <i class="fas fa-undo"></i>
+                                    </a>
+                                    <a class='option-delete' onclick="deleteTask({{task.pk}}, {{task.text}}, `{% url 'tasks:remove' %}`)" data-toggle="tooltip" placement="bottom" title="Delete Task">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </span>
+                            </p>
+                            <hr class="my-0">
+                            <span class="task-time">
+                                <span class="time-added" title="time added"><b><em>Added: </em></b>{{task.date_created|naturaltime}}</span>
+                                <span class="due-time completed-due" title="completed"><b>Completed</b></span>
+                            </span>
+                        
+                        {% endif %}
+                        </div>
+                    {%empty%}
+                        <p class='display-4' style='text-align: center; color: grey'>No tasks yet</p>
+                        <p class='display-5' style='text-align: center; color: grey'>You can add tasks above</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'tasks/js/_ajaxify.js' %}"></script>
+{% endblock javascript %}
